@@ -1,26 +1,24 @@
-package com.github.jenkinsx.quickstarts.springbootrestprometheus;
+package com.github.jenkinsx.quickstarts.springboot.rest.prometheus;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Collections;
 import java.util.Map;
+
+import static java.util.Collections.singletonMap;
 
 @SpringBootApplication
 @Controller
-public class SpringBootRestPrometheusApplication {
+public class RestPrometheusApplication {
 
 	public static void main(String[] args) {
-		MeterRegistry registry = SpringApplication.run(SpringBootRestPrometheusApplication.class, args).getBean(MeterRegistry.class);
+        SpringApplication.run(RestPrometheusApplication.class, args);
 	}
 
 	@Autowired
@@ -30,7 +28,7 @@ public class SpringBootRestPrometheusApplication {
 	@ResponseBody
 	public Map<String, Object> landingPage() {
 		Counter.builder("mymetric").tag("foo", "bar").register(registry).increment();
-		return Collections.singletonMap("hello", "world");
+        return singletonMap("hello", "world");
 	}
 
 }
