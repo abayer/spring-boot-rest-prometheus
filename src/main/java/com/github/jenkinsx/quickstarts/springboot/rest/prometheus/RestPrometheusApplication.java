@@ -17,10 +17,6 @@ import static java.util.Collections.singletonMap;
 @Controller
 public class RestPrometheusApplication {
 
-	public static void main(String[] args) {
-        SpringApplication.run(RestPrometheusApplication.class, args);
-	}
-
 	@Autowired
 	private MeterRegistry registry;
 
@@ -29,6 +25,10 @@ public class RestPrometheusApplication {
 	public Map<String, Object> landingPage() {
 		Counter.builder("mymetric").tag("foo", "bar").register(registry).increment();
         return singletonMap("hello", "world");
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(RestPrometheusApplication.class, args);
 	}
 
 }
