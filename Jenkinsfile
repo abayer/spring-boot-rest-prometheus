@@ -1,8 +1,8 @@
 pipeline {
   agent any
   environment {
-    ORG = 'REPLACE_ME_ORG'
-    APP_NAME = 'REPLACE_ME_APP_NAME'
+    ORG = 'abayer'
+    APP_NAME = 'spring-boot-rest-prometheus'
     CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
   }
   stages {
@@ -32,7 +32,7 @@ pipeline {
         branch 'master'
       }
       steps {
-        git 'https://REPLACE_ME_GIT_PROVIDER/REPLACE_ME_ORG/REPLACE_ME_APP_NAME.git'
+        git 'https://github.com/abayer/spring-boot-rest-prometheus.git'
 
         // so we can retrieve the version in later steps
         sh "echo \$(jx-release-version) > VERSION"
@@ -49,7 +49,7 @@ pipeline {
         branch 'master'
       }
       steps {
-        dir('charts/REPLACE_ME_APP_NAME') {
+        dir('charts/spring-boot-rest-prometheus') {
           sh "jx step changelog --version v\$(cat ../../VERSION)"
 
           // release the helm chart
